@@ -4,6 +4,28 @@
     <title>HabitTracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Begin custom code copied from Developer Console -->
+    <!-- Note: this is just an example. The html you download from Developer Console will be tailored for your site -->
+    <script type="text/javascript" src="//www.gstatic.com/authtoolkit/js/gitkit.js"></script>
+    <link type=text/css rel=stylesheet href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
+    <script type=text/javascript>
+      window.google.identitytoolkit.signInButton(
+        '#navbar', // accepts any CSS selector
+        {
+          widgetUrl: "http://localhost:3000/signin.html",
+          signOutUrl: "/",
+          // Optional - Begin the sign-in flow in a popup window
+          //popupMode: true,
+
+          // Optional - Cookie name (default: gtoken)
+          //            NOTE: Also needs to be added to config of ‘widget
+          //                  page’. See below
+          //cookieName: ‘example_cookie’,
+        }
+      );
+    </script>
+    <!-- End custom code copied from Developer Console -->
+
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
