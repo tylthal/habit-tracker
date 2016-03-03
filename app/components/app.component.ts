@@ -8,7 +8,8 @@ import {HeaderComponent} from './header.component';
     styleUrls: [
       './app/styles/app.component.css'
     ],
-    providers: [DataService]
+    providers: [DataService],
+    directives: [HeaderComponent]
 })
 
 export class AppComponent {
