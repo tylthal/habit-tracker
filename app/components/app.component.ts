@@ -1,6 +1,8 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {DataService} from '../services/data.service';
 import {HeaderComponent} from './header.component';
+import {SplashComponent} from './splash.component';
+import {DashboardComponent} from './dashboard.component';
 
 @Component({
     selector: 'my-app',
@@ -9,9 +11,15 @@ import {HeaderComponent} from './header.component';
       './app/styles/app.component.css'
     ],
     providers: [DataService],
-    directives: [HeaderComponent]
+    directives: [HeaderComponent, SplashComponent, DashboardComponent]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+    loggedIn = false;
+
     constructor(private _dataService: DataService) { }
+
+    ngOnInit() {
+      this.loggedIn = this._dataService.isLoggedIn();
+    }
 }

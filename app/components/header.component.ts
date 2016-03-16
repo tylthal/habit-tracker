@@ -13,9 +13,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
                 // load the navbar
                 window.google.identitytoolkit.signInButton(
-                  '#navbar', // accepts any CSS selector
+                  '#login', // accepts any CSS selector
                   {
-                    widgetUrl: "http://localhost:3000/signin.html",
+                    widgetUrl: "/signin.html",
                     signOutUrl: "/",
                     // Optional - Begin the sign-in flow in a popup window
                     //popupMode: true,
