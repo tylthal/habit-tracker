@@ -1,12 +1,13 @@
 import {Component} from 'angular2/core';
 import {CategoryListComponent} from './category/categorylist.component';
+import {HabitListComponent} from './habit/habitlist.component';
 
 @Component({
   selector: 'app-dashboard',
   template: `
-          <div id="container">
-            <div id="left"><category-list></category-list></div>
-            <div id="right"><h3>Currently selected category will show here.</h3></div>
+          <div id="row">
+            <div class="col-xs-3"><category-list></category-list></div>
+            <div class="col-xs-9"><habit-list></habit-list></div>
           </div>
           `,
   styles: [`
@@ -21,7 +22,7 @@ import {CategoryListComponent} from './category/categorylist.component';
           #right {
           }
           `],
-  directives: [CategoryListComponent]
+  directives: [CategoryListComponent, HabitListComponent]
 })
 
 export class DashboardComponent {

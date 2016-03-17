@@ -1,2 +1,8 @@
-body {
+html, body {
+  width : 100%;
+  height: 100%;
+}
+
+.gitkit-user-card-menu {
+  z-index: 10;
 }

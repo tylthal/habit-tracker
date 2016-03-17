@@ -1,9 +1,9 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, EventEmitter} from 'angular2/core';
 import {Category} from '../classes/category'
 
 var CATS: Category[] = [
-  {"id": 1, "name": "Home"},
-  {"id": 2, "name": "Work"},
+  {"id": 1, "name": "Home", "description": "Things to do around the house."},
+  {"id": 2, "name": "Work", "description": "Working up the corporate ladder."},
   {"id": 3, "name": "Fun"},
 ]
 
@@ -11,6 +11,7 @@ var CATS: Category[] = [
 
 export class DataService {
   selectedCategory: Category = undefined;
+  selectedChanged: EventEmitter<Category> = new EventEmitter<Category>();
 
   isLoggedIn() {
     // this really needs to be reworked into an async call that validates
@@ -20,14 +21,16 @@ export class DataService {
   }
 
   getCategories() {
-    setTimeout(function(){
-      CATS.push({"id":4, "name":"Another one"})
-    }, 5000);
     return Promise.resolve(CATS);
   }
 
+  setSelectedCategory(cat: Category) {
+    this.selectedCategory = cat;
+    this.selectedChanged.emit(cat);
+  }
 }
 
+//TODO: pull this into a utility class
 function getCookie(name) {
     var dc = document.cookie;
     var prefix = name + "=";
