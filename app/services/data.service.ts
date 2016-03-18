@@ -1,5 +1,6 @@
 import {Injectable, EventEmitter} from 'angular2/core';
-import {Category} from '../classes/category'
+import {Category} from '../classes/category';
+import {Habit} from '../classes/habit';
 
 var CATS: Category[] = [
   {"id": 1, "name": "Home", "description": "Things to do around the house."},
@@ -27,6 +28,10 @@ export class DataService {
   setSelectedCategory(cat: Category) {
     this.selectedCategory = cat;
     this.selectedChanged.emit(cat);
+  }
+
+  addCategory(name: string, description?: string) {
+      CATS.push({"id":0,"name":name,"description":description});
   }
 }
 

@@ -1,4 +1,4 @@
-export interface Category {
+export interface Habit {
   id: number;
   name: string;
   description: string;

@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {DataService} from '../../services/data.service';
 import {Category} from '../../classes/category';
+import {Habit} from '../../classes/habit';
 
 @Component({
   selector: 'habit-list',
@@ -10,7 +11,7 @@ import {Category} from '../../classes/category';
               <h3 *ngIf="category == undefined" class="panel-title">Select a category</h3>
               <div *ngIf="category != undefined">
                 <h3 class="panel-title">
-                  <b>{{category.name}}</b><br />
+                  {{category.name}}<br />
                   <small *ngIf="category.description"> - {{category.description}}</small>
                 </h3>
               </div>

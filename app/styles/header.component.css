@@ -1,3 +1,7 @@
 #login {
   z-index: 0;
 }
+
+.header {
+  margin-left: 5px;
+}

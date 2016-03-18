@@ -6,8 +6,8 @@ import {HabitListComponent} from './habit/habitlist.component';
   selector: 'app-dashboard',
   template: `
           <div id="row">
-            <div class="col-xs-3"><category-list></category-list></div>
-            <div class="col-xs-9"><habit-list></habit-list></div>
+            <div class="col-sm-3"><category-list></category-list></div>
+            <div class="col-sm-9"><habit-list></habit-list></div>
           </div>
           `,
   styles: [`
