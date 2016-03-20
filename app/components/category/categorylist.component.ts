@@ -1,4 +1,4 @@
-import {Component, DynamicComponentLoader, OnInit, ElementRef, ComponentRef, Injector} from 'angular2/core';
+import {Component, OnInit, ElementRef} from 'angular2/core';
 import {DataService} from '../../services/data.service';
 import {Category} from '../../classes/category';
 import {CategoryComponent} from './category.component';
@@ -6,28 +6,7 @@ import {CategoryForm} from './categoryform.component';
 
 @Component({
     selector: 'category-list',
-    template: `
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="row">
-                <h3 class="panel-title col-xs-8">Categories</h3>
-                <button class="btn btn-default col-xs-4 addbutton" (click)="showCategoryForm()">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
-              </div>
-            </div>
-            <div #catForm></div>
-            <ul class="nav nav-pills nav-stacked">
-              <li *ngFor="#cat of categories"
-                roles="presentation"
-                [class.active]="cat == selected">
-                  <a (click)="onSelect(cat)">
-                      <category [category]=cat></category>
-                  </a>
-              </li>
-            </ul>
-          </div>
-              `,
+    templateUrl: './app/templates/category/categorylist.component.html',
     styles: [
       `
         .addbutton {
@@ -43,10 +22,9 @@ import {CategoryForm} from './categoryform.component';
 export class CategoryListComponent implements OnInit {
   categories: Category[];
   selected: Category;
-  categoryForm: ComponentRef;
+  showCatForm: boolean = false;
 
-  constructor(private _dataService: DataService, private _dcl: DynamicComponentLoader, private _elementRef: ElementRef,
-              private _injector: Injector) {
+  constructor(private _dataService: DataService, private _elementRef: ElementRef) {
     _dataService.selectedChanged.subscribe((category: Category) => {
       this.selected = category;
     });
@@ -60,17 +38,11 @@ export class CategoryListComponent implements OnInit {
       this._dataService.setSelectedCategory(category);
   }
 
-  showCategoryForm() {
-    if(this.categoryForm) {
-      this.categoryForm.dispose();
-      this.categoryForm = undefined;
-    }
-    else {
-      this._dcl.loadIntoLocation(CategoryForm, this._elementRef, "catForm")
-        .then((compRef) => {
-          this.categoryForm = compRef;
-        });
-      //this._dcl.loadAsRoot(CategoryForm, "body", this._injector)
-    }
+  toggleCategoryForm() {
+    this.showCatForm = !this.showCatForm;
+  }
+
+  categoryFormClosed() {
+    this.showCatForm = false;
   }
 }

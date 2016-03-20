@@ -31,7 +31,8 @@ export class DataService {
   }
 
   addCategory(name: string, description?: string) {
-      CATS.push({"id":0,"name":name,"description":description});
+    console.log(name);
+    CATS.push({"id":0,"name":name,"description":description});
   }
 }
 

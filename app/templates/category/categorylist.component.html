@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+  <div class="row">
+    <h3 class="panel-title col-xs-8">Categories</h3>
+      <button class="btn btn-default col-xs-4 addbutton" (click)="toggleCategoryForm()">
+        <span *ngIf="!showCatForm" class="glyphicon glyphicon-plus"></span>
+        <span *ngIf="showCatForm" class="glyphicon glyphicon-minus"></span>
+      </button>
+    </div>
+  </div>
+  <category-form (closed)="categoryFormClosed()" *ngIf="showCatForm"></category-form>
+  <ul class="nav nav-pills nav-stacked">
+    <li *ngFor="#cat of categories"
+        roles="presentation"
+        [class.active]="cat == selected">
+      <a (click)="onSelect(cat)">
+        <category [category]=cat></category>
+      </a>
+    </li>
+  </ul>
+</div>
