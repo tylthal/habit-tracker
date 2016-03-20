@@ -3,10 +3,24 @@ import {Category} from '../classes/category';
 import {Habit} from '../classes/habit';
 
 var CATS: Category[] = [
-  {"id": 1, "name": "Home", "description": "Things to do around the house."},
-  {"id": 2, "name": "Work", "description": "Working up the corporate ladder."},
-  {"id": 3, "name": "Fun"},
-]
+  {
+    "id": 1,
+    "name": "Home",
+    "description": "Things to do around the house.",
+    "habits": [
+      {"id":1, "name":"Work out", "description": "Run 3 miles.", "currentWeek": [false, false, false, false, false, false, false]},
+      {"id":2, "name":"Get up early", "description": "", "currentWeek": [false, false, false, false, false, false, false]},
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Work",
+    "description": "Working up the corporate ladder.",
+    "habits": [
+      {"id":1, "name":"Inbox Zero", "description": "Go through inbox", "currentWeek": [false, false, false, false, false, false, false]},
+    ]
+  },
+];
 
 @Injectable()
 
@@ -21,7 +35,7 @@ export class DataService {
     return cookie != undefined;
   }
 
-  getCategories() {
+  getCategories() : Promise<Category[]> {
     return Promise.resolve(CATS);
   }
 
@@ -33,6 +47,15 @@ export class DataService {
   addCategory(name: string, description?: string) {
     console.log(name);
     CATS.push({"id":0,"name":name,"description":description});
+  }
+
+  getHabits(category: Category) : Promise<Habit[]> {
+    for(var i = 0; i < CATS.length; i++) {
+      if (CATS[i] === category) {
+        return Promise.resolve(category.habits);
+      }
+    }
+    return Promise.resolve(undefined);
   }
 }
 

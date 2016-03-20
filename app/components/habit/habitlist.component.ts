@@ -1,37 +1,29 @@
 import {Component} from 'angular2/core';
 import {DataService} from '../../services/data.service';
+import {HabitComponent} from './habit.component';
 import {Category} from '../../classes/category';
 import {Habit} from '../../classes/habit';
 
 @Component({
   selector: 'habit-list',
-  template: `
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 *ngIf="category == undefined" class="panel-title">Select a category</h3>
-              <div *ngIf="category != undefined">
-                <h3 class="panel-title">
-                  {{category.name}}<br />
-                  <small *ngIf="category.description"> - {{category.description}}</small>
-                </h3>
-              </div>
-            </div>
-            <div class="panel-body">
-            </div>
-          </div>
-          `,
-  styles: [
-    `
-    `
-  ]
+  templateUrl: './app/templates/habit/habitlist.component.html',
+  directives: [HabitComponent]
 })
 
 export class HabitListComponent {
   category: Category;
+  habits: Habit[];
+
+  setCategory(category: Category) {
+    this.category = category;
+    this._dataService.getHabits(this.category).then(habits => {
+      this.habits = habits;
+    });
+  }
 
   constructor(private _dataService: DataService) {
     _dataService.selectedChanged.subscribe((category: Category) => {
-      this.category = category;
+      this.setCategory(category);
     });
   }
 }
