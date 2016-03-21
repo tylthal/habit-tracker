@@ -4,38 +4,40 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <tr>
-          <th class="text-center">Mon</th>
-          <th class="text-center">Tue</th>
-          <th class="text-center">Wed</th>
-          <th class="text-center">Thu</th>
-          <th class="text-center">Fri</th>
-          <th class="text-center">Sat</th>
-          <th class="text-center">Sun</th>
+          <th class="text-center">{{habit.currentWeek[0].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[1].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[2].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[3].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[4].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[5].getDayStr()}}</th>
+          <th class="text-center">{{habit.currentWeek[6].getDayStr()}}</th>
         </tr>
         <tr style="height: 50px;">
-          <td class="day text-center" (click)="dayPressed(0)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[0]"></span>
+          <td class="day text-center" (click)="dayPressed(0)" [class.habit-done]="habit.currentWeek[0].completed">
+            <span class="glyphicon glyphicon-ok-circle" ></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(1)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[1]"></span>
+          <td class="day text-center" (click)="dayPressed(1)" [class.habit-done]="habit.currentWeek[1].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(2)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[2]"></span>
+          <td class="day text-center" (click)="dayPressed(2)" [class.habit-done]="habit.currentWeek[2].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(3)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[3]"></span>
+          <td class="day text-center" (click)="dayPressed(3)" [class.habit-done]="habit.currentWeek[3].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(4)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[4]"></span>
+          <td class="day text-center" (click)="dayPressed(4)" [class.habit-done]="habit.currentWeek[4].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(5)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[5]"></span>
+          <td class="day text-center" (click)="dayPressed(5)" [class.habit-done]="habit.currentWeek[5].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(6)">
-            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[6]"></span>
+          <td class="day text-center" (click)="dayPressed(6)" [class.habit-done]="habit.currentWeek[6].completed">
+            <span class="glyphicon glyphicon-ok-circle"></span>
           </td>
         </tr>
       </table>
     </div>
+    <div>Current Streak: 0 days</div>
+    <div>Best Streak: 0 days</div>
   </div>
 </div>

@@ -1,8 +1,21 @@
-import {Habit} from './habit';
+import {IHabit, Habit} from './habit';
 
-export interface Category {
+export interface ICategory {
   id: number;
   name: string;
   description?: string;
-  habits?: Habit[];
+  habits: IHabit[];
+}
+
+export class Category implements ICategory {
+  id: number;
+  name: string;
+  description: string;
+  habits: Habit[];
+
+  constructor(name, description) {
+    this.name = name;
+    this.description = description;
+    this.habits = new Array<Habit>();
+  }
 }

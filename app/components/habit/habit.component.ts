@@ -8,6 +8,9 @@ import {Habit} from '../../classes/habit';
             .day {
               min-width: 50px;
               font-size: 2em;
+              color: lightgray;
+            }
+            .habit-done {
               color: green;
             }
           `]
@@ -17,6 +20,6 @@ export class HabitComponent {
   @Input() habit: Habit;
 
   dayPressed(day) {
-    this.habit.currentWeek[day] = !this.habit.currentWeek[day];
+    this.habit.currentWeek[day].completed = !this.habit.currentWeek[day].completed;
   }
 }

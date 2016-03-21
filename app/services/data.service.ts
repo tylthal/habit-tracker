@@ -2,31 +2,23 @@ import {Injectable, EventEmitter} from 'angular2/core';
 import {Category} from '../classes/category';
 import {Habit} from '../classes/habit';
 
-var CATS: Category[] = [
-  {
-    "id": 1,
-    "name": "Home",
-    "description": "Things to do around the house.",
-    "habits": [
-      {"id":1, "name":"Work out", "description": "Run 3 miles.", "currentWeek": [false, false, false, false, false, false, false]},
-      {"id":2, "name":"Get up early", "description": "", "currentWeek": [false, false, false, false, false, false, false]},
-    ]
-  },
-  {
-    "id": 2,
-    "name": "Work",
-    "description": "Working up the corporate ladder.",
-    "habits": [
-      {"id":1, "name":"Inbox Zero", "description": "Go through inbox", "currentWeek": [false, false, false, false, false, false, false]},
-    ]
-  },
-];
-
 @Injectable()
 
 export class DataService {
-  selectedCategory: Category = undefined;
   selectedChanged: EventEmitter<Category> = new EventEmitter<Category>();
+
+  selectedCategory: Category = undefined;
+  categories: Category[] = new Array<Category>();
+
+  constructor() {
+    var cat1 = new Category("Home", "Things to do around the house.");
+    cat1.habits.push(new Habit("Work Out", "Run 3 miles.", new Date()));
+    cat1.habits.push(new Habit("Get up early", "", new Date()));
+    var cat2 = new Category("Work", "Working up the corporate ladder");
+    cat2.habits.push(new Habit("Inbox Zero", "Go through inbox", new Date()));
+    this.categories.push(cat1);
+    this.categories.push(cat2);
+  }
 
   isLoggedIn() {
     // this really needs to be reworked into an async call that validates
@@ -36,7 +28,7 @@ export class DataService {
   }
 
   getCategories() : Promise<Category[]> {
-    return Promise.resolve(CATS);
+    return Promise.resolve(this.categories);
   }
 
   setSelectedCategory(cat: Category) {
@@ -46,12 +38,12 @@ export class DataService {
 
   addCategory(name: string, description?: string) {
     console.log(name);
-    CATS.push({"id":0,"name":name,"description":description});
+    this.categories.push(new Category(name, description));
   }
 
   getHabits(category: Category) : Promise<Habit[]> {
-    for(var i = 0; i < CATS.length; i++) {
-      if (CATS[i] === category) {
+    for(var i = 0; i < this.categories.length; i++) {
+      if (this.categories[i] === category) {
         return Promise.resolve(category.habits);
       }
     }
