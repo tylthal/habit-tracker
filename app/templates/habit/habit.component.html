@@ -1,43 +1,57 @@
 <div class="panel panel-default">
-  <div class="panel-heading">{{habit.name}}</div>
+  <div class="panel-heading"><b>{{habit.name}}</b></div>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table table-bordered">
         <tr>
-          <th class="text-center">{{habit.currentWeek[0].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[1].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[2].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[3].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[4].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[5].getDayStr()}}</th>
-          <th class="text-center">{{habit.currentWeek[6].getDayStr()}}</th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[0].date)"><div class="header"><div class="text-muted month">{{monthDisplay(0)}}</div><div class="day-header">{{habit.currentWeek[0].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[1].date)"><div class="header"><div class="text-muted month">{{monthDisplay(1)}}</div><div class="day-header">{{habit.currentWeek[1].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[2].date)"><div class="header"><div class="text-muted month">{{monthDisplay(2)}}</div><div class="day-header">{{habit.currentWeek[2].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[3].date)"><div class="header"><div class="text-muted month">{{monthDisplay(3)}}</div><div class="day-header">{{habit.currentWeek[3].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[4].date)"><div class="header"><div class="text-muted month">{{monthDisplay(4)}}</div><div class="day-header">{{habit.currentWeek[4].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[5].date)"><div class="header"><div class="text-muted month">{{monthDisplay(5)}}</div><div class="day-header">{{habit.currentWeek[5].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[6].date)"><div class="header"><div class="text-muted month">{{monthDisplay(6)}}</div><div class="day-header">{{habit.currentWeek[6].getDayStr()}}</div></div></th>
         </tr>
         <tr style="height: 50px;">
-          <td class="day text-center" (click)="dayPressed(0)" [class.habit-done]="habit.currentWeek[0].completed">
-            <span class="glyphicon glyphicon-ok-circle" ></span>
+          <td class="day text-center" (click)="dayPressed(0)" [class.today]="isToday(habit.currentWeek[0].date)" [class.habit-done]="habit.currentWeek[0].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[0].date) && !habit.currentWeek[0].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[0].completed || !isPast(habit.currentWeek[0].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[0].date) && !habit.currentWeek[0].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(1)" [class.habit-done]="habit.currentWeek[1].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(1)" [class.today]="isToday(habit.currentWeek[1].date)" [class.habit-done]="habit.currentWeek[1].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[1].date) && !habit.currentWeek[1].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[1].completed || !isPast(habit.currentWeek[1].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[1].date) && !habit.currentWeek[1].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(2)" [class.habit-done]="habit.currentWeek[2].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(2)" [class.today]="isToday(habit.currentWeek[2].date)" [class.habit-done]="habit.currentWeek[2].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[2].date) && !habit.currentWeek[2].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[2].completed || !isPast(habit.currentWeek[2].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[2].date) && !habit.currentWeek[2].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(3)" [class.habit-done]="habit.currentWeek[3].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(3)" [class.today]="isToday(habit.currentWeek[3].date)" [class.habit-done]="habit.currentWeek[3].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[3].date) && !habit.currentWeek[3].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[3].completed || !isPast(habit.currentWeek[3].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[3].date) && !habit.currentWeek[3].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(4)" [class.habit-done]="habit.currentWeek[4].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(4)" [class.today]="isToday(habit.currentWeek[4].date)" [class.habit-done]="habit.currentWeek[4].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[4].date) && !habit.currentWeek[4].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[4].completed || !isPast(habit.currentWeek[4].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[4].date) && !habit.currentWeek[4].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(5)" [class.habit-done]="habit.currentWeek[5].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(5)" [class.today]="isToday(habit.currentWeek[5].date)" [class.habit-done]="habit.currentWeek[5].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[5].date) && !habit.currentWeek[5].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[5].completed || !isPast(habit.currentWeek[5].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[5].date) && !habit.currentWeek[5].completed"></span>
           </td>
-          <td class="day text-center" (click)="dayPressed(6)" [class.habit-done]="habit.currentWeek[6].completed">
-            <span class="glyphicon glyphicon-ok-circle"></span>
+          <td class="day text-center" (click)="dayPressed(6)" [class.today]="isToday(habit.currentWeek[6].date)" [class.habit-done]="habit.currentWeek[6].completed"
+            [class.habit-missed]="isPast(habit.currentWeek[6].date) && !habit.currentWeek[6].completed">
+            <span class="glyphicon" [class.glyphicon-ok-circle]="habit.currentWeek[6].completed || !isPast(habit.currentWeek[6].date)"
+              [class.glyphicon-remove-circle]="isPast(habit.currentWeek[6].date) && !habit.currentWeek[6].completed"></span>
           </td>
         </tr>
       </table>
     </div>
-    <div>Current Streak: 0 days</div>
-    <div>Best Streak: 0 days</div>
+    <div>Current Streak: {{currentStreak}} days</div>
+    <div>Best Streak: {{bestStreak}} days</div>
   </div>
 </div>

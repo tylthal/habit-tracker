@@ -9,15 +9,23 @@ export class DataService {
 
   selectedCategory: Category = undefined;
   categories: Category[] = new Array<Category>();
+  today: Date;
 
   constructor() {
+    this.today = new Date();
     var cat1 = new Category("Home", "Things to do around the house.");
-    cat1.habits.push(new Habit("Work Out", "Run 3 miles.", new Date()));
-    cat1.habits.push(new Habit("Get up early", "", new Date()));
+    cat1.habits.push(new Habit("Work Out", "Run 3 miles.", this.getDay(-2)));
+    cat1.habits.push(new Habit("Get up early", "", this.getDay(-2)));
     var cat2 = new Category("Work", "Working up the corporate ladder");
-    cat2.habits.push(new Habit("Inbox Zero", "Go through inbox", new Date()));
+    cat2.habits.push(new Habit("Inbox Zero", "Go through inbox", this.getDay(-2)));
     this.categories.push(cat1);
     this.categories.push(cat2);
+  }
+
+  getDay(offsetFromToday: number) : Date {
+    var day = new Date();
+    day.setDate(this.today.getDate() + offsetFromToday);
+    return day;
   }
 
   isLoggedIn() {

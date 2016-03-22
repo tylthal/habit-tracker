@@ -2,7 +2,6 @@ export interface IDay {
     date: Date;
     required: boolean; // indicates if the habit needs to be done on this day
     completed: boolean;
-    isPast: boolean;
 }
 
 var DAYS: Array<string> = [
@@ -19,10 +18,10 @@ export class Day implements IDay {
   date: Date;
   required: boolean;
   completed: boolean;
-  isPast: boolean;
 
   constructor(date: Date) {
     this.date = date;
+    this.required = true; // TODO: at some point we want to be able to add schedules to habits
   }
 
   getDayStr() {
