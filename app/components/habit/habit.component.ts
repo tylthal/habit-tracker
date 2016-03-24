@@ -32,12 +32,11 @@ var MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
             }
 
             .header {
-              position: relative;
             }
 
             .month {
-              float: left;
               font-size: .8em;
+              clear: both;
             }
 
             .day-header {

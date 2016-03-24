@@ -4,13 +4,13 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <tr>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[0].date)"><div class="header"><div class="text-muted month">{{monthDisplay(0)}}</div><div class="day-header">{{habit.currentWeek[0].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[1].date)"><div class="header"><div class="text-muted month">{{monthDisplay(1)}}</div><div class="day-header">{{habit.currentWeek[1].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[2].date)"><div class="header"><div class="text-muted month">{{monthDisplay(2)}}</div><div class="day-header">{{habit.currentWeek[2].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[3].date)"><div class="header"><div class="text-muted month">{{monthDisplay(3)}}</div><div class="day-header">{{habit.currentWeek[3].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[4].date)"><div class="header"><div class="text-muted month">{{monthDisplay(4)}}</div><div class="day-header">{{habit.currentWeek[4].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[5].date)"><div class="header"><div class="text-muted month">{{monthDisplay(5)}}</div><div class="day-header">{{habit.currentWeek[5].getDayStr()}}</div></div></th>
-          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[6].date)"><div class="header"><div class="text-muted month">{{monthDisplay(6)}}</div><div class="day-header">{{habit.currentWeek[6].getDayStr()}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[0].date)"><div class="header"><div class="day-header">{{habit.currentWeek[0].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(0)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[1].date)"><div class="header"><div class="day-header">{{habit.currentWeek[1].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(1)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[2].date)"><div class="header"><div class="day-header">{{habit.currentWeek[2].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(2)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[3].date)"><div class="header"><div class="day-header">{{habit.currentWeek[3].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(3)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[4].date)"><div class="header"><div class="day-header">{{habit.currentWeek[4].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(4)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[5].date)"><div class="header"><div class="day-header">{{habit.currentWeek[5].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(5)}}</div></div></th>
+          <th class="text-center" [class.today-header]="isToday(habit.currentWeek[6].date)"><div class="header"><div class="day-header">{{habit.currentWeek[6].getDayStr()}}</div><div class="text-muted month">{{monthDisplay(6)}}</div></div></th>
         </tr>
         <tr style="height: 50px;">
           <td class="day text-center" (click)="dayPressed(0)" [class.today]="isToday(habit.currentWeek[0].date)" [class.habit-done]="habit.currentWeek[0].completed"
