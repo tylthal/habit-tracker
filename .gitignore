@@ -2,7 +2,6 @@
 *.js.map
 /node_modules
 /.vscode
-/key
 npm-debug.log
 
 !bs-config.js
