@@ -10,8 +10,10 @@ export class DataService {
   selectedCategory: Category = undefined;
   categories: Category[] = new Array<Category>();
   today: Date;
+  serviceEndpoint = "http://localhost:3003/";
 
-  constructor() {
+  constructor()
+  {
     this.today = new Date();
     var cat1 = new Category("Home", "Things to do around the house.");
     cat1.habits.push(new Habit("Work Out", "Run 3 miles.", this.getDay(-2)));
@@ -22,15 +24,28 @@ export class DataService {
     this.categories.push(cat2);
   }
 
+  httpGetAsync(theUrl: string, callback: Function)
+  {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200 && callback != null)
+            callback(xmlHttp.responseText);
+    }
+    console.log("Calling " + theUrl);
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+  }
+
   getDay(offsetFromToday: number) : Date {
     var day = new Date();
     day.setDate(this.today.getDate() + offsetFromToday);
     return day;
   }
 
-  isLoggedIn() {
+  isLoggedIn(callback: Function) {
     // this really needs to be reworked into an async call that validates
     // the cookie on the server and creates a session
+    this.httpGetAsync(this.serviceEndpoint + "validateuser", callback);
     var cookie = getCookie('gtoken');
     return cookie != undefined;
   }

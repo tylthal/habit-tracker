@@ -10,7 +10,7 @@ import {DataService} from '../../services/data.service';
 
 export class CategoryForm {
   @Output() closed = new EventEmitter();
-  category: Category = {"id": 0, "name": "", "description": ""};
+  category: Category = new Category("", "");
 
   constructor(private _dataService: DataService){
   }
