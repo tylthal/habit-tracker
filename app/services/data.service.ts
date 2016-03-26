@@ -10,7 +10,6 @@ export class DataService {
   selectedCategory: Category = undefined;
   categories: Category[] = new Array<Category>();
   today: Date;
-  serviceEndpoint = "http://localhost:3003/";
 
   constructor()
   {
@@ -43,11 +42,12 @@ export class DataService {
   }
 
   isLoggedIn(callback: Function) {
-    // this really needs to be reworked into an async call that validates
-    // the cookie on the server and creates a session
-    this.httpGetAsync(this.serviceEndpoint + "validateuser", callback);
-    var cookie = getCookie('gtoken');
-    return cookie != undefined;
+    this.httpGetAsync("validateuser", function(response: any) {
+      if(callback) {
+        response = JSON.parse(response);
+        callback(response.valid);
+      }
+    });
   }
 
   getCategories() : Promise<Category[]> {

@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
     constructor(private _dataService: DataService) { }
 
     ngOnInit() {
-      this.loggedIn = this._dataService.isLoggedIn(undefined);
+      var self = this;
+      this._dataService.isLoggedIn(function(response) {
+        self.loggedIn = response;
+      });
     }
 }
