@@ -41,11 +41,15 @@ export class DataService {
     return day;
   }
 
-  isLoggedIn(callback: Function) {
+  isLoggedIn(callback: Function) : boolean {
+    if(!getCookie('gtoken')) {
+      return false;
+    }
     this.httpGetAsync("validateuser", function(response: any) {
       if(callback) {
         response = JSON.parse(response);
         callback(response.valid);
+        console.log(response.userid);
       }
     });
   }

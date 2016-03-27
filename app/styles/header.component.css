@@ -1,5 +1,5 @@
-#login {
-  z-index: 0;
+.gitkit-user-card-menu {
+  z-index: 10;
 }
 
 .header {
