@@ -6,10 +6,10 @@ import {Habit} from '../classes/habit';
 
 export class DataService {
   selectedChanged: EventEmitter<Category> = new EventEmitter<Category>();
-
   selectedCategory: Category = undefined;
-  categories: Category[] = new Array<Category>();
+  categories: Category[];
   today: Date;
+  user_id: string;
 
   constructor()
   {
@@ -19,13 +19,14 @@ export class DataService {
     this.today.setSeconds(0);
     this.today.setMilliseconds(0);
 
-    var cat1 = new Category("Home", "Things to do around the house.");
-    cat1.habits.push(new Habit("Work Out", "Run 3 miles.", this.getDay(-2)));
-    cat1.habits.push(new Habit("Get up early", "", this.getDay(-2)));
-    var cat2 = new Category("Work", "Working up the corporate ladder");
-    cat2.habits.push(new Habit("Inbox Zero", "Go through inbox", this.getDay(-2)));
-    this.categories.push(cat1);
-    this.categories.push(cat2);
+    //this.categories = new Array<Category>();
+    //var cat1 = new Category("Home", "Things to do around the house.");
+    //cat1.habits.push(new Habit("Work Out", "Run 3 miles.", this.getDay(-2)));
+    //cat1.habits.push(new Habit("Get up early", "", this.getDay(-2)));
+    //var cat2 = new Category("Work", "Working up the corporate ladder");
+    //cat2.habits.push(new Habit("Inbox Zero", "Go through inbox", this.getDay(-2)));
+    //this.categories.push(cat1);
+    //this.categories.push(cat2);
   }
 
   httpGetAsync(theUrl: string, callback: Function)
@@ -47,6 +48,7 @@ export class DataService {
   }
 
   isLoggedIn(callback: Function) : boolean {
+    var self = this;
     if(!getCookie('gtoken')) {
       return false;
     }
@@ -54,13 +56,30 @@ export class DataService {
     this.httpGetAsync("validateuser", function(response: any) {
       if(callback) {
         response = JSON.parse(response);
+        if(response.valid) {
+          self.user_id = response.user_id;
+        }
         callback(response.valid);
       }
     });
   }
 
   getCategories() : Promise<Category[]> {
-    return Promise.resolve(this.categories);
+    if(this.categories) {
+      return Promise.resolve(this.categories);
+    } else {
+      this.categories = new Array<Category>();
+      var self = this;
+      return new Promise((resolve, reject) => {
+        this.httpGetAsync("categories", function(response: any) {
+          if(response) {
+            var response = JSON.parse(response);
+            self.categories = response;
+          }
+          resolve(self.categories);
+        });
+      });
+    }
   }
 
   setSelectedCategory(cat: Category) {
@@ -70,7 +89,7 @@ export class DataService {
 
   addCategory(name: string, description?: string) {
     console.log(name);
-    this.categories.push(new Category(name, description));
+    this.categories.push(new Category("b", name, description));
   }
 
   getHabits(category: Category) : Promise<Habit[]> {
