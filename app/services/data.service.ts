@@ -14,6 +14,11 @@ export class DataService {
   constructor()
   {
     this.today = new Date();
+    this.today.setHours(0);
+    this.today.setMinutes(0);
+    this.today.setSeconds(0);
+    this.today.setMilliseconds(0);
+
     var cat1 = new Category("Home", "Things to do around the house.");
     cat1.habits.push(new Habit("Work Out", "Run 3 miles.", this.getDay(-2)));
     cat1.habits.push(new Habit("Get up early", "", this.getDay(-2)));
@@ -27,10 +32,10 @@ export class DataService {
   {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200 && callback != null)
-            callback(xmlHttp.responseText);
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200 && callback != null) {
+        callback(xmlHttp.responseText);
+      }
     }
-    console.log("Calling " + theUrl);
     xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
   }
@@ -45,11 +50,11 @@ export class DataService {
     if(!getCookie('gtoken')) {
       return false;
     }
+
     this.httpGetAsync("validateuser", function(response: any) {
       if(callback) {
         response = JSON.parse(response);
         callback(response.valid);
-        console.log(response.userid);
       }
     });
   }

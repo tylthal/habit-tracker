@@ -46,12 +46,22 @@ var MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
 
 export class HabitComponent {
   @Input() habit: Habit;
-  today: Date = new Date();
+  today: Date;
   currentStreak: number;
   bestStreak: number;
 
+  constructor() {
+    this.today = new Date();
+    this.today.setHours(0);
+    this.today.setMinutes(0);
+    this.today.setSeconds(0);
+    this.today.setMilliseconds(0);
+  }
+
   dayPressed(day) {
-    this.habit.currentWeek[day].completed = !this.habit.currentWeek[day].completed;
+    if(!this.isFuture(this.habit.currentWeek[day].date)) {
+      this.habit.currentWeek[day].completed = !this.habit.currentWeek[day].completed;
+    }
   }
 
   isToday(date: Date) {
@@ -60,8 +70,11 @@ export class HabitComponent {
   }
 
   isPast(date: Date) {
-    return this.today.getFullYear() > date.getFullYear() || this.today.getMonth() > date.getMonth() ||
-      this.today.getDate() > date.getDate();
+    return date < this.today;
+  }
+
+  isFuture(date: Date) {
+    return date > this.today;
   }
 
   monthDisplay(index: number):string {
