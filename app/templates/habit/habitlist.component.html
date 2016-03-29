@@ -3,11 +3,16 @@
     <h3 *ngIf="category == undefined" class="panel-title">Select a category</h3>
     <div *ngIf="category != undefined">
       <h3 class="panel-title">
+        <button class="btn btn-default col-xs-4 addbutton" (click)="toggleHabitForm()">
+          <span *ngIf="!showHabitForm" class="glyphicon glyphicon-plus"></span>
+          <span *ngIf="showHabitForm" class="glyphicon glyphicon-minus"></span>
+        </button>
         {{category.name}}<br />
         <small *ngIf="category.description"> - {{category.description}}</small>
       </h3>
     </div>
   </div>
+  <habit-form (closed)="habitFormClosed()" *ngIf="showHabitForm"></habit-form>
   <div class="panel-body">
     <div *ngFor="#habit of habits">
       <habit [habit]=habit></habit>

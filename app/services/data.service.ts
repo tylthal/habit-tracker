@@ -29,16 +29,9 @@ export class DataService {
     //this.categories.push(cat2);
   }
 
-  httpGetAsync(theUrl: string, callback: Function)
-  {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200 && callback != null) {
-        callback(xmlHttp.responseText);
-      }
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous
-    xmlHttp.send(null);
+  setSelectedCategory(cat: Category) {
+    this.selectedCategory = cat;
+    this.selectedChanged.emit(cat);
   }
 
   getDay(offsetFromToday: number) : Date {
@@ -53,9 +46,8 @@ export class DataService {
       return false;
     }
 
-    this.httpGetAsync("validateuser", function(response: any) {
+    $.get("validateuser", function(response: any) {
       if(callback) {
-        response = JSON.parse(response);
         if(response.valid) {
           self.user_id = response.user_id;
         }
@@ -68,12 +60,10 @@ export class DataService {
     if(this.categories) {
       return Promise.resolve(this.categories);
     } else {
-      this.categories = new Array<Category>();
       var self = this;
       return new Promise((resolve, reject) => {
-        this.httpGetAsync("categories", function(response: any) {
+        $.get("categories", function(response: any) {
           if(response) {
-            var response = JSON.parse(response);
             self.categories = response;
           }
           resolve(self.categories);
@@ -82,14 +72,13 @@ export class DataService {
     }
   }
 
-  setSelectedCategory(cat: Category) {
-    this.selectedCategory = cat;
-    this.selectedChanged.emit(cat);
-  }
-
   addCategory(name: string, description?: string) {
-    console.log(name);
-    this.categories.push(new Category("b", name, description));
+    var self = this;
+    $.post('/category', {"name":name, "description":description}, function(response) {
+      if(response.inserted) {
+        self.categories.push(new Category(response.id, name, description));
+      }
+    })
   }
 
   getHabits(category: Category) : Promise<Habit[]> {

@@ -1,22 +1,22 @@
 import {Component, Output, EventEmitter} from 'angular2/core';
 import {NgForm} from 'angular2/common'
-import {Category} from '../../classes/category';
+import {Habit} from '../../classes/habit';
 import {DataService} from '../../services/data.service';
 
 @Component({
-  selector: 'category-form',
-  templateUrl: './app/templates/category/categoryform.component.html',
+  selector: 'habit-form',
+  templateUrl: './app/templates/habit/habitform.component.html',
 })
 
-export class CategoryForm {
+export class HabitFormComponent {
   @Output() closed = new EventEmitter();
-  category: Category = new Category("", "", "");
+  habit: Habit = new Habit("", "", this._dataService.today);
 
   constructor(private _dataService: DataService){
   }
 
   onSubmit() {
-    this._dataService.addCategory(this.category.name, this.category.description);
+    //this._dataService.addCategory(this.category.name, this.category.description);
     this.closed.emit({});
   }
 }
